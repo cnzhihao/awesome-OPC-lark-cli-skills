@@ -6,6 +6,35 @@
 
 本项目是基于 Lark CLI 的技能集合，专门为 OPC（Operations Center/Platform）团队定制，旨在提供便捷的命令行工具和自动化工作流，提升开发效率和协作体验。
 
+## 📚 项目组成
+
+本项目包含两个主要部分：
+
+### 1. skill-template
+Lark CLI 技能开发模板，包含：
+- **skill-template.md** - 单模块技能模板
+- **master-skill-template.md** - 主技能模板（全功能入口）
+- **domains/** - 各业务域的参考文档
+  - base.md - 多维表格
+  - calendar.md - 日历
+  - doc.md - 文档
+  - drive.md - 云空间
+  - im.md - 消息
+  - mail.md - 邮件
+  - sheets.md - 电子表格
+  - vc.md - 视频会议
+  - wiki.md - 知识库
+
+### 2. opc-company-skills
+完整的 OPC 公司经营管理系统 ERP 技能套件，包含：
+- **opc-shared** - 共享基础（认证、配置、权限管理）
+- **opc-customer** - 客户管理（档案、联系人、合同）
+- **opc-order** - 订单管理（创建、发货、开票、回款）
+- **opc-inventory** - 库存管理（查询、补货、预警）
+- **opc-finance** - 财务管理（应收应付、报表）
+- **opc-hr** - 人事管理（考勤、薪资、招聘）
+- **opc-suite** - 主技能（全功能入口）
+
 ## ✨ 特性
 
 - 🚀 **快速部署** - 一键安装和配置
@@ -36,43 +65,142 @@ lark skills link
 
 ## 🎯 使用方法
 
-### 基础用法
+### 前置要求
+
+- Node.js >= 16
+- Lark CLI 已安装
+- 飞书开放平台账号
+
+### 安装 Lark CLI
 
 ```bash
-# 查看所有可用技能
-lark skills list
+# 安装 Lark CLI
+npm install -g @larksuite/cli
 
-# 执行特定技能
-lark run <skill-name>
+# 安装 CLI Skills
+npx skills add larksuite/cli -y -g
 
-# 查看技能帮助
-lark help <skill-name>
+# 配置和登录
+lark-cli config init
+lark-cli auth login --recommend
+```
+
+### 使用 OPC 公司经营管理系统
+
+#### 1. 安装
+
+```bash
+cd opc-company-skills
+npm install
+npm run link
+```
+
+#### 2. 创建数据表
+
+在飞书中创建多维表格，按照各模块的表结构定义字段。
+
+#### 3. 使用技能
+
+通过 AI Agent（如 Claude Code）自动识别并调用对应 Skill。
+
+**示例对话：**
+- 用户：帮我创建一个新客户，公司叫"科技创新有限公司"
+- AI：[调用 opc-customer +create]
+
+- 用户：查看今天的库存预警
+- AI：[调用 opc-inventory +alert]
+
+- 用户：生成应收账款报表
+- AI：[调用 opc-finance +receivable]
+
+### 使用技能模板
+
+#### 1. 查看模板
+
+```bash
+# 查看单模块模板
+cat skill-template/skill-template.md
+
+# 查看主技能模板
+cat skill-template/master-skill-template.md
+
+# 查看业务域参考
+cat skill-template/domains/base.md
+```
+
+#### 2. 创建新技能
+
+```bash
+# 复制模板
+cp skill-template/skill-template.md skills/my-skill/SKILL.md
+
+# 根据模板自定义编辑
+vim skills/my-skill/SKILL.md
 ```
 
 ### 常用技能
 
+#### skill-template 使用
+
 ```bash
-# 示例：项目初始化
-lark run init-project
+# 参考模板创建新技能
+cp skill-template/skill-template.md skills/my-new-skill/SKILL.md
 
-# 示例：代码提交
-lark run git-commit
+# 参考业务域文档
+cat skill-template/domains/base.md
+```
 
-# 示例：工作流管理
-lark run workflow
+#### opc-company-skills 使用
+
+```bash
+# 进入 opc-company-skills 目录
+cd opc-company-skills
+
+# 安装依赖
+npm install
+
+# 链接到 Lark CLI
+npm run link
+
+# 使用客户管理技能
+# AI Agent 会自动识别并调用对应 Skill
+# 例如：帮我创建一个新客户，公司叫"科技创新有限公司"
 ```
 
 ## 📁 项目结构
 
 ```
 awesome-OPC-lark-cli-skills/
-├── skills/              # 技能脚本目录
-│   ├── init-project/   # 项目初始化技能
-│   ├── git-commit/     # Git 提交技能
-│   └── workflow/       # 工作流管理技能
-├── config/             # 配置文件
-├── docs/              # 文档
-└── README.md          # 项目说明
+├── skill-template/              # 技能开发模板
+│   ├── skill-template.md       # 单模块模板
+│   ├── master-skill-template.md # 主技能模板
+│   └── domains/                # 业务域参考文档
+│       ├── base.md             # 多维表格
+│       ├── calendar.md         # 日历
+│       ├── doc.md              # 文档
+│       ├── drive.md            # 云空间
+│       ├── im.md               # 消息
+│       ├── mail.md             # 邮件
+│       ├── sheets.md           # 电子表格
+│       ├── vc.md               # 视频会议
+│       └── wiki.md             # 知识库
+│
+├── opc-company-skills/         # OPC 公司经营管理系统
+│   ├── README.md               # 详细说明
+│   ├── QUICKSTART.md           # 快速开始
+│   ├── PROJECT_STRUCTURE.md    # 项目结构
+│   ├── package.json            # npm 配置
+│   └── skills/                 # 技能模块
+│       ├── opc-shared/         # 共享基础
+│       ├── opc-customer/       # 客户管理
+│       ├── opc-order/          # 订单管理
+│       ├── opc-inventory/      # 库存管理
+│       ├── opc-finance/        # 财务管理
+│       ├── opc-hr/             # 人事管理
+│       └── opc-suite/          # 主技能
+│
+├── .gitignore                  # Git 忽略配置
+└── README.md                   # 项目说明（本文件）
 ```
 
 ## 🤝 贡献

@@ -1,0 +1,28 @@
+{
+  "name": "@your-org/opc-company-skills",
+  "version": "1.0.0",
+  "description": "飞书 CLI Skill 套件 - OPC 公司经营管理系统",
+  "main": "skills/opc-suite/SKILL.md",
+  "scripts": {
+    "install": "npm run link",
+    "link": "npx skills link ."
+  },
+  "keywords": [
+    "lark",
+    "feishu",
+    "cli",
+    "skills",
+    "opc",
+    "erp"
+  ],
+  "author": "你的名字",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/opc-company-skills.git"
+  },
+  "files": [
+    "skills/**/*",
+    "README.md"
+  ]
+}
