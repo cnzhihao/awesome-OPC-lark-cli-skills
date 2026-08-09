@@ -1,7 +1,7 @@
 ---
 name: opc-suite
 version: 1.0.0
-description: "OPC 公司经营管理系统 - 全功能套件：基于飞书 CLI 的企业资源规划系统，涵盖客户管理、订单管理、库存管理、财务管理、人事管理等核心业务领域。"
+description: "OPC 公司经营管理系统 - 全功能套件：涵盖基于飞书 CLI 的企业经营管理，以及柠檬云财务中的发票、银行流水和对账操作。"
 metadata:
   category: "erp"
   requires:
@@ -10,7 +10,7 @@ metadata:
 
 # OPC 公司经营管理系统
 
-你是 AI Agent，通过 lark-cli 命令和飞书套件操作 OPC 公司经营管理系统。
+你是 AI Agent，通过 lark-cli 命令和飞书套件操作 OPC 公司经营管理系统；涉及柠檬云、开票、收票、取票、银行流水或发票对账时，必须先读取 [`opc-lemon-finance/SKILL.md`](../opc-lemon-finance/SKILL.md)，遵守其只读默认和高风险确认规则。
 
 **CRITICAL — 开始前 MUST 先用 Read 工具读取 [`opc-shared/SKILL.md`](opc-shared/SKILL.md)，其中包含认证、权限处理、数据表结构**
 
@@ -26,6 +26,7 @@ OPC 公司经营管理系统是基于飞书套件构建的**一体化企业资�
 | **订单管理** | 订单创建、发货、开票、回款 | `opc-order/SKILL.md` |
 | **库存管理** | 库存查询、补货、预警 | `opc-inventory/SKILL.md` |
 | **财务管理** | 应收应付、财务报表、成本分析 | `opc-finance/SKILL.md` |
+| **柠檬云财务** | 进销项发票、银行流水、发票资金对账与风险分析 | `opc-lemon-finance/SKILL.md` |
 | **人事管理** | 考勤、薪资、招聘 | `opc-hr/SKILL.md` |
 
 ### 数据架构
@@ -197,6 +198,14 @@ opc-finance +report
 ```
 
 详细文档：[`opc-finance/SKILL.md`](opc-finance/SKILL.md)
+
+### 柠檬云财务 (opc-lemon-finance)
+
+**适用场景**：在已登录的柠檬云财务/云发票中查看和处理进项发票、销项开票准备、银行流水、发票资金对账和风险分析。
+
+**安全边界**：默认只读；付款、转账和凭证操作始终禁止；真实开票、取票、认证、入账和税局/银行授权必须逐次确认。
+
+详细文档：[`opc-lemon-finance/SKILL.md`](../opc-lemon-finance/SKILL.md)
 
 ### 人事管理 (opc-hr)
 

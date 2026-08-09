@@ -30,8 +30,13 @@ opc-company-skills/
     ├── opc-inventory/                  # 📊 库存管理
     │   └── SKILL.md                    # 主文档
     │
-    ├── opc-finance/                    # 💰 财务管理
+    ├── opc-finance/                    # 💰 飞书财务管理
     │   └── SKILL.md                    # 主文档
+
+    ├── opc-lemon-finance/              # 🧾 柠檬云财务执行
+    │   ├── SKILL.md                    # 主文档与安全边界
+    │   ├── references/                 # 页面工作流与业务规则
+    │   └── evals/                      # 安全评测用例
     │
     ├── opc-hr/                         # 👔 人事管理
     │   └── SKILL.md                    # 主文档
@@ -49,6 +54,7 @@ opc-company-skills/
 | **opc-order** | ✅ | 1/6 | 40% |
 | **opc-inventory** | ✅ | 0/5 | 30% |
 | **opc-finance** | ✅ | 0/6 | 30% |
+| **opc-lemon-finance** | ✅ | 6/6 | 100%（安全规范与流程） |
 | **opc-hr** | ✅ | 0/8 | 30% |
 | **opc-suite** | ✅ | - | 100% |
 
@@ -81,6 +87,14 @@ opc-company-skills/
 - ✅ 付款确认（计划中）
 - ✅ 财务报表（计划中）
 - ✅ 账龄分析（计划中）
+
+### 柠檬云财务 (opc-lemon-finance)
+- ✅ 公司、账套、期间和登录上下文检查
+- ✅ 进项发票与一键取票流程
+- ✅ 销项开票字段核对与确认协议
+- ✅ 银行日记账、智能获取流水和银企互联边界
+- ✅ 发票资金对账与风险分析
+- ✅ 幂等、脱敏、审计和高风险停止条件
 
 ### 人事管理 (opc-hr)
 - ✅ 员工档案管理
@@ -164,6 +178,9 @@ opc-suite (主入口)
     ├── opc-finance
     │   ├── opc-shared
     │   └── opc-order
+    ├── opc-lemon-finance
+    │   ├── chrome:control-chrome / browser:control-in-app-browser
+    │   └── 用户已登录的柠檬云财务/云发票会话
     └── opc-hr
         └── opc-shared
 ```

@@ -7,7 +7,7 @@
 
 ## 📋 项目简介
 
-OPC 公司经营管理系统是一套完整的 AI Agent Skills，通过飞书 CLI 操作飞书套件（多维表格、日历、文档等），实现企业的全流程数字化管理。
+OPC 公司经营管理系统是一套完整的 AI Agent Skills，通过飞书 CLI 操作飞书套件，并通过独立的柠檬云财务 Skill 处理发票、银行流水和财务对账，实现企业的全流程数字化管理。
 
 ### 核心特性
 
@@ -34,7 +34,8 @@ OPC AI Agent Skills
 ├── opc-customer     # 客户管理
 ├── opc-order        # 订单管理
 ├── opc-inventory    # 库存管理
-├── opc-finance      # 财务管理
+├── opc-finance      # 飞书财务管理
+├── opc-lemon-finance # 柠檬云财务执行
 └── opc-hr           # 人事管理
 ```
 
@@ -47,6 +48,7 @@ OPC AI Agent Skills
 | **opc-order** | 订单创建、发货、开票、回款 | 🚧 开发中 |
 | **opc-inventory** | 库存查询、补货、预警 | 🚧 开发中 |
 | **opc-finance** | 应收应付、财务报表 | 🚧 开发中 |
+| **opc-lemon-finance** | 进销项发票、银行流水、发票资金对账 | ✅ 安全规范完成 |
 | **opc-hr** | 考勤、薪资、招聘 | 🚧 开发中 |
 
 ## 🚀 快速开始
@@ -178,7 +180,11 @@ opc-company-skills/
 │   │       └── opc-customer-contract.md
 │   ├── opc-order/              # 订单管理
 │   ├── opc-inventory/          # 库存管理
-│   ├── opc-finance/            # 财务管理
+│   ├── opc-finance/            # 飞书财务管理
+│   ├── opc-lemon-finance/      # 柠檬云财务执行
+│   │   ├── SKILL.md            # 主文档与安全边界
+│   │   ├── references/         # 柠檬云页面工作流
+│   │   └── evals/              # 安全评测用例
 │   ├── opc-hr/                 # 人事管理
 │   └── opc-suite/              # 主 Skill（全功能入口）
 │       └── SKILL.md
@@ -212,6 +218,14 @@ opc-company-skills/
 3. 生成财务报表 → `opc-finance +report`
 4. 导出数据 → `lark-cli base app_table_records export`
 
+### 场景 4：柠檬云发票与银行流水日常处理
+
+1. 核对公司、账套和会计期间 → `opc-lemon-finance` 的 `lemon-context`
+2. 查看进项/销项发票与重复项 → `lemon-invoice-receive` / `lemon-invoice-issue`
+3. 查看银行日记账或准备获取流水 → `lemon-bank-flow`
+4. 对比发票与收款并识别风险 → `lemon-reconcile-risk`
+5. 任何取票、真实开票、认证或入账动作都要单独确认；付款、转账和凭证操作始终禁止
+
 ## 🔒 权限与安全
 
 ### 基础权限
@@ -242,6 +256,7 @@ opc-company-skills/
 2. 创建 `SKILL.md` 文件
 3. 创建 `references/` 目录和详细文档
 4. 在 `opc-suite/SKILL.md` 中添加模块说明
+5. 如果模块连接外部财务系统，补充只读默认、凭据边界、幂等和高风险确认规则
 
 ### 参考模板
 
